@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Javascript Form - Arquivo de exemplo</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery/jquery-1.12.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="js/formulario.js"></script>
+        
+        <script type="text/javascript">
+            /* Função de validação do formulário de alteração de senha
+             *
+             * Ela foi colocada aqui por um propósito: 
+             * Evitar alterar o arquivo do prototype "ValidaFormulario", 
+             * mas inserir a função usando o método "definirValidador('NomePersonalizado')" de "Formulario", isso vai incorporar a função externa ao prototype...
+             * 
+             * Porém... aparentemente você pode inserir direto ao prototype seguindo a sintaxe: "ValidaFormulario.prototype.validador_form_alteraremail", pois ele já foi carregado
+             */
+            
+            //ValidaFormulario.prototype.validador_form_alteraremail = function() {
+            function validador_form_alteraremail() {
+                return $(this.id).validate({
+                    onkeyup:false,
+                    errorClass: 'error',
+                    validClass: 'success',
+                    errorPlacement:function(error, element) {
+                    },
+                    submitHandler:function() {
+                    },
+                    rules: {
+                        emailatual: {
+                            required: true,
+                            minlength: 8,
+                            maxlength: 120,
+                            email: true
+                        },
+                        email: {
+                            required: true,
+                            minlength: 8,
+                            maxlength: 120,
+                            email: true
+                        },
+                        confirmar_email: {
+                            minlength: 8,
+                            maxlength: 120,
+                            equalTo: "#email"
+                        }
+                    }
+                });
+            };
+        </script>
+        
+        
+        <style type="text/css" rel="stylesheet">
+            /* Reset */
+            * {margin:0; padding:0; border:0}
+            body {font-family: arial, sans-serif; font-size: 14px; width:100%}
+            hr {width:100%; height:1px; display:inline-block; background-color:#eee}
+            
+            .fl {float:left}
+            .fr {float:right}
+            #container {width:100%; height:100%}
+            .bloco {width:500px; margin:20px 0}
+            
+            /* estilo do formulário */
+            form {font-size:14px; padding:10px; width:400px}
+            form fieldset {padding:10px; border:1px solid #ddd; border-radius:5px}
+            form legend {margin: 0 10px; padding:0 10px}
+            form label {display:inline-block}
+            form label span {width:150px; display:inline-block; text-align:right; margin-right:10px}
+            form label input {width:200px; display:inline-block}
+            form input[type=text], 
+            form input[type=password],
+            form input[type=button] {height:20px; font-size:14px; background-color:#eee; border:1px solid #ccc}
+            
+            /* classes de validação */
+            form .error {border-color:#FF0000 !important}
+            form .success {border-color:#3fd48e !important}
+        </style>
+        
+    </head>
+    <body>
+        <div id="container">
+            <div class="bloco">
+                <form id='form_alterarsenha' name="form_alterarsenha">
+                    <fieldset>
+                        <legend>Alterar Senha</legend>
+                        <label>
+                            <span class="fl">Senha atual</span>
+                            <input type="password" class="fl" id="senhaatual" name="senhaatual" placeholder="Senha atual" />
+                        </label>
+                        <label>
+                            <span class="fl">Nova senha</span>
+                            <input type="password" class="fl" id="senha" name="senha" placeholder="Nova senha" />
+                        </label>
+                        <label>
+                            <span class="fl">Confirmar nova senha</span>
+                            <input type="password" class="fl" id="confirmar_senha" name="confirmar_senha" placeholder="Confirmar nova senha" />
+                        </label>
+
+                        <br>
+                        <br>
+                        <label>
+                            <span class="fl">&nbsp;</span>
+                            <input type="button" class="fl" id="bt_salvar" value="SALVAR" />
+                        </label>
+
+                        <br>
+                        <br>
+                        <label>
+                            <span class="fl">&nbsp;</span>
+                            <input type="button" class="fl" id="bt_preencherdados" value="PREENCHER DADOS" />
+                        </label>
+
+                        <br>
+                        <br>
+                        <label>
+                            <span class="fl">&nbsp;</span>
+                            <input type="button" class="fl" id="bt_limpar" value="LIMPAR CAMPOS" />
+                        </label>
+
+                        <br>
+                        <br>
+                        <label>
+                            <span class="fl">&nbsp;</span>
+                            <input type="button" class="fl" id="bt_aplvalidacao" value="APLICAR VALIDAÇÃO" />
+                        </label>
+                    </fieldset>
+                </form>
+            </div>
+            
+            <hr>
+            
+            <div class="bloco">
+                <form id='form_alteraremail' name="form_alteraremail">
+                    <fieldset>
+                        <legend>Alterar E-mail</legend>
+                        <label>
+                            <span class="fl">E-mail atual</span>
+                            <input type="text" class="fl" id="emailatual" name="emailatual" placeholder="E-mail atual" />
+                        </label>
+                        <label>
+                            <span class="fl">Novo e-mail</span>
+                            <input type="text" class="fl" id="email" name="email" placeholder="Novo e-mail" />
+                        </label>
+                        <label>
+                            <span class="fl">Confirmar novo e-mail</span>
+                            <input type="text" class="fl" id="confirmar_email" name="confirmar_email" placeholder="Confirmar novo e-mail" />
+                        </label>
+
+                        <br>
+                        <br>
+                        <label>
+                            <span class="fl">&nbsp;</span>
+                            <input type="button" class="fl" id="bt2_salvar" value="SALVAR" />
+                        </label>
+
+                        <br>
+                        <br>
+                        <label>
+                            <span class="fl">&nbsp;</span>
+                            <input type="button" class="fl" id="bt2_preencherdados" value="PREENCHER DADOS" />
+                        </label>
+
+                        <br>
+                        <br>
+                        <label>
+                            <span class="fl">&nbsp;</span>
+                            <input type="button" class="fl" id="bt2_limpar" value="LIMPAR CAMPOS" />
+                        </label>
+
+                        <br>
+                        <br>
+                        <label>
+                            <span class="fl">&nbsp;</span>
+                            <input type="button" class="fl" id="bt2_aplvalidacao" value="APLICAR VALIDAÇÃO" title="a função de validação está declarada fora do prototype neste exemplo" />
+                        </label>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        
+        
+        <script type="text/javascript">
+            // Executa a bibliteca de controle de formulários ===========================================
+            
+            // Formulário de alteração de senha =========================================================
+            var form = new Formulario('form_alterarsenha');
+            
+            // simular o submit
+            $('#bt_salvar').on('click', function(){
+                var objLer = form.ler();
+                console.log(objLer);
+                if(form.isValid()) {
+                    console.log('Validação OK');
+                } else {
+                    console.log('Validação Errada ou não definida');
+                }
+            });
+            
+            // simular um preenchimento (normalmente são dados do servidor)
+            $('#bt_preencherdados').on('click', function(){
+                var objPreencher = {};
+                objPreencher.senhaatual = "teste";
+                objPreencher.senha = "teste1234";
+                objPreencher.confirmar_senha = "teste1234";
+                
+                form.preencher(objPreencher);
+            });
+            
+            // simular reset
+            $('#bt_limpar').on('click', function(){
+                form.limpar();
+            });
+            
+            // Aplicar validação do formulário (normalmente isso é automático, mas aqui é apenas para efeito de teste)
+            $('#bt_aplvalidacao').on('click', function(){
+                form.definirValidador();
+            });
+            
+            
+            
+            // Formulário de alteração de e-mail ========================================================
+            var form2 = new Formulario('form_alteraremail');
+            
+            // simular o submit
+            $('#bt2_salvar').on('click', function(){
+                var objLer = form2.ler();
+                console.log(objLer);
+                if(form2.isValid()) {
+                    console.log('Validação OK');
+                } else {
+                    console.log('Validação Errada ou não definida');
+                }
+            });
+            
+            // simular um preenchimento (normalmente são dados do servidor)
+            $('#bt2_preencherdados').on('click', function(){
+                var objPreencher = {};
+                objPreencher.emailatual = "email@teste.com";
+                objPreencher.email = "email@teste.abc.de";
+                objPreencher.confirmar_email = "email@teste.abc.de";
+                
+                form2.preencher(objPreencher);
+            });
+            
+            // simular reset
+            $('#bt2_limpar').on('click', function(){
+                form2.limpar();
+            });
+            
+            // Aplicar validação do formulário (normalmente isso é automático, mas aqui é apenas para efeito de teste)
+            $('#bt2_aplvalidacao').on('click', function(){
+                form2.definirValidador();
+            });
+            
+        </script>
+    </body>
+</html>
