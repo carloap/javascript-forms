@@ -25,11 +25,14 @@
 /**
  * Função prototype genérica para manipulação e validação de campos de formulários.
  * Como usar:
- * 1) instancie fornecendo o ID do formulário como argumento,
- * 2) use os métodos [ ler() ] / [ preencher() ] / [ limpar() ] para interagir com os campos
- * 3) [opcional] defina um validador de campos com [ definirValidador(nomeDaFunçãoDeValidação) ]
- * 		3.1) o argumento é opcional, será usado o ID do formulário por padrão para mapear a função com o mesmo nome
- * 4) [opcional] valide o formulário com [ isValid() ]
+ * 1) Instancie "new Formulario(id)" fornecendo o ID do formulário,
+ * 2) use os métodos "ler()" / "preencher()" / "limpar()" para interagir com os campos
+ * 3) [opcional] use o método "definirValidador(nomeDaFunçãoDeValidação)" para definir uma função validadora do formulário
+ *  3.1) o argumento é o nome da função opcional, por padrão, será usado "validador_"+ o ID do formulário para encontrar a função
+ * 4) [opcional] valide o formulário com "isValid()"
+ * 
+ * Obs: Também é possível inserir a função de validação direto ao prototype, por exemplo:
+ * "ValidaFormulario.prototype.validador_form_alteraremail"
  * 
  * @param formID ID do formulário que será manipulado.
  */
@@ -136,9 +139,10 @@ Formulario.prototype = (function() {
 			return;
 	    };
 	    method.isValid = function() {
-            if(typeof this.validador !== 'undefined')
-	    	  return this.validador.isValid();
-            return false;
+            if (typeof this.validador === 'undefined') {
+                this.definirValidador(undefined);
+            }
+	    	return this.validador.isValid();
 	    };
     
     return method;
