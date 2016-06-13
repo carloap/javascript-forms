@@ -6,50 +6,7 @@
         <script type="text/javascript" src="jquery/jquery-1.12.2.min.js"></script>
         <script type="text/javascript" src="jquery/jquery.validate.min.js"></script>
         <script type="text/javascript" src="formulario.js"></script>
-        
-        <script type="text/javascript">
-            /* Função de validação do formulário de alteração de senha
-             *
-             * Ela foi colocada aqui por um propósito: 
-             * Evitar alterar o arquivo do prototype "ValidaFormulario", 
-             * mas inserir a função usando o método "definirValidador('NomePersonalizado')" de "Formulario", isso vai incorporar a função externa ao prototype...
-             * 
-             * Porém... aparentemente você pode inserir direto ao prototype seguindo a sintaxe: "ValidaFormulario.prototype.validador_form_alteraremail", pois ele já foi carregado
-             */
-            
-            //ValidaFormulario.prototype.validador_form_alteraremail = function() {
-            function validador_form_alteraremail() {
-                return $(this.id).validate({
-                    onkeyup:false,
-                    errorClass: 'error',
-                    validClass: 'success',
-                    errorPlacement:function(error, element) {
-                    },
-                    submitHandler:function() {
-                    },
-                    rules: {
-                        emailatual: {
-                            required: true,
-                            minlength: 8,
-                            maxlength: 120,
-                            email: true
-                        },
-                        email: {
-                            required: true,
-                            minlength: 8,
-                            maxlength: 120,
-                            email: true
-                        },
-                        confirmar_email: {
-                            minlength: 8,
-                            maxlength: 120,
-                            equalTo: "#email"
-                        }
-                    }
-                });
-            };
-        </script>
-        
+        <script type="text/javascript" src="validador_customizado.js"></script>
         
         <style type="text/css" rel="stylesheet">
             /* Reset */
@@ -180,80 +137,6 @@
             </div>
         </div>
         
-        
-        <script type="text/javascript">
-            // Executa a bibliteca de controle de formulários ===========================================
-            
-            // Formulário de alteração de senha =========================================================
-            var form = new Formulario('form_alterarsenha');
-            
-            // simular o submit
-            $('#bt_salvar').on('click', function(){
-                var objLer = form.ler();
-                console.log(objLer);
-                if(form.isValid()) {
-                    console.log('Validação OK');
-                } else {
-                    console.log('Validação Errada ou não definida');
-                }
-            });
-            
-            // simular um preenchimento (normalmente são dados do servidor)
-            $('#bt_preencherdados').on('click', function(){
-                var objPreencher = {};
-                objPreencher.senhaatual = "teste";
-                objPreencher.senha = "teste1234";
-                objPreencher.confirmar_senha = "teste1234";
-                
-                form.preencher(objPreencher);
-            });
-            
-            // simular reset
-            $('#bt_limpar').on('click', function(){
-                form.limpar();
-            });
-            
-            // Aplicar validação do formulário (normalmente isso é automático, mas aqui é apenas para efeito de teste)
-            $('#bt_aplvalidacao').on('click', function(){
-                form.definirValidador();
-            });
-            
-            
-            
-            // Formulário de alteração de e-mail ========================================================
-            var form2 = new Formulario('form_alteraremail');
-            
-            // simular o submit
-            $('#bt2_salvar').on('click', function(){
-                var objLer = form2.ler();
-                console.log(objLer);
-                if(form2.isValid()) {
-                    console.log('Validação OK');
-                } else {
-                    console.log('Validação Errada ou não definida');
-                }
-            });
-            
-            // simular um preenchimento (normalmente são dados do servidor)
-            $('#bt2_preencherdados').on('click', function(){
-                var objPreencher = {};
-                objPreencher.emailatual = "email@teste.com";
-                objPreencher.email = "email@teste.abc.de";
-                objPreencher.confirmar_email = "email@teste.abc.de";
-                
-                form2.preencher(objPreencher);
-            });
-            
-            // simular reset
-            $('#bt2_limpar').on('click', function(){
-                form2.limpar();
-            });
-            
-            // Aplicar validação do formulário (normalmente isso é automático, mas aqui é apenas para efeito de teste)
-            $('#bt2_aplvalidacao').on('click', function(){
-                form2.definirValidador();
-            });
-            
-        </script>
+        <script type="text/javascript" src="eventos.js"></script>
     </body>
 </html>
