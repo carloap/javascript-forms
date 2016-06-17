@@ -36,17 +36,25 @@
  * 
  * @param formID ID do formulário que será manipulado.
  */
-function Formulario(id) {
+function Formulario(id) 
+{
+	this.form = undefined;
 	this.validador = undefined;
 	this.prefixoValidador = 'validador_';
 	
-	var frm = undefined;
+	var $frm = undefined;
 	if(typeof id === "string")
-		frm = document.forms[id];
+		$frm = document.forms[id];
 	else 
-		frm = id;
-	if(frm  || typeof frm !== 'undefined')
-		this.form = frm;
+		$frm = id;
+	
+	// se o elemento não foi encontrado, provavelmente ainda não foi criado no DOM
+	if(typeof $frm === 'undefined'){
+		// TODO
+	}
+	
+	if($frm || typeof $frm !== 'undefined')
+		this.form = $frm;
 	else 
 		console.error('O ID informado ['+ id +'] não pertence à um formulário');
 };
@@ -82,7 +90,7 @@ Formulario.prototype = (function() {
 				}
 			}
 		}
-	}
+	};
 	
 	/**
 	 * Função para ler os campos de um formulário.
@@ -128,6 +136,7 @@ Formulario.prototype = (function() {
 	    };
 	    method.preencher = function(dataSource) {
 	    	preencherCampos(dataSource);
+	    	return true;
 	    };
 	    method.ler = function() {
 	    	var objFields = lerCampos(this.form);
